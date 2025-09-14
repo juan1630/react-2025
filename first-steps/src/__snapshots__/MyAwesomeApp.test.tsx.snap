@@ -1,0 +1,79 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MyAwesomeApp.tsx > should match snapshot 1`] = `
+<div>
+  <div
+    data-testid="div-app"
+  >
+    <h1
+      data-testid="first-name-title"
+    >
+       
+      Jose Juan
+       
+    </h1>
+    <h3
+      class="main-title"
+    >
+       
+      Patrón
+       
+    </h3>
+    <p>
+       
+       
+    </p>
+    4
+    <h1>
+       
+      Activo
+       
+    </h1>
+    <p
+      style="background-color: red; color: white; padding: 10px; border-radius: 10px; font-size: 20px; text-align: center; font-weight: bold;"
+    >
+       
+      {"zipcode":"abc-123","country":"México"}
+       
+    </p>
+  </div>
+</div>
+`;
+
+exports[`MyAwesomeApp.tsx > should match snapshot 2`] = `
+<div
+  data-testid="div-app"
+>
+  <h1
+    data-testid="first-name-title"
+  >
+     
+    Jose Juan
+     
+  </h1>
+  <h3
+    class="main-title"
+  >
+     
+    Patrón
+     
+  </h3>
+  <p>
+     
+     
+  </p>
+  4
+  <h1>
+     
+    Activo
+     
+  </h1>
+  <p
+    style="background-color: red; color: white; padding: 10px; border-radius: 10px; font-size: 20px; text-align: center; font-weight: bold;"
+  >
+     
+    {"zipcode":"abc-123","country":"México"}
+     
+  </p>
+</div>
+`;
