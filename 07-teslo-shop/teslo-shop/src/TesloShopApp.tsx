@@ -1,10 +1,14 @@
-import { RouterProvider } from 'react-router'
-import { appRouter } from './app.router'
+import { RouterProvider } from "react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { appRouter } from "./app.router";
 
+const queryClient = new QueryClient();
 export const TesloShopApp = () => {
   return (
-    <div>
-        <RouterProvider router={appRouter} />
-    </div>
-  )
-}
+    <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={appRouter} />
+    </QueryClientProvider>
+  );
+};
