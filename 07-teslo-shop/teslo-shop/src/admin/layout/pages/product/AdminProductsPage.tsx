@@ -10,9 +10,15 @@ import {
 } from "@/components/ui/table";
 import { CustomPagination } from "@/components/ui/custom/CustomPagination";
 import { Button } from "@/components/ui/button";
-import { PlusIcon } from "lucide-react";
+import { PencilIcon, PlusIcon } from "lucide-react";
+import { useProducts } from "@/shop/hooks/useProducts";
+import { CustomFullScreenLoading } from "@/components/ui/custom/CustomFullScreenLoading";
 
 export const AdminProductsPage = () => {
+  const { data, isLoading } = useProducts();
+
+  if(isLoading) return <CustomFullScreenLoading/>
+
   return (
     <>
       <div className="flex justify-between items-center">
@@ -44,28 +50,32 @@ export const AdminProductsPage = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">1</TableCell>
-            <TableCell>
-              <img
-                src="https://placehold.co/250x250"
-                alt="producto"
-                className="w-20 h-20 object-cover rounded-e-md"
-              />
-            </TableCell>
-            <TableCell>Producto 1</TableCell>
-            <TableCell>$250.00</TableCell>
-            <TableCell>100 STOCK</TableCell>
-            <TableCell>categoria 1</TableCell>
-            <TableCell> XS,S,L </TableCell>
-            <TableCell className="text-right">
-              <Link to={`/admin/products/t-shirt-teslo`}>Editar</Link>
-            </TableCell>
-          </TableRow>
+          {data?.products.map((product, index) => (
+            <TableRow key={product.id} >
+              <TableCell className="font-medium"> { index +1 }</TableCell>
+              <TableCell>
+                <img
+                  src={product.images[0]}
+                  alt={product.description}
+                  className="w-20 h-20 object-cover rounded-e-md"
+                />
+              </TableCell>
+              <TableCell>
+                <Link to={`/admin/products/${product.id}`} className="hover:text-blue-500 underline" > {product.title} </Link>
+              </TableCell>
+              <TableCell> {product.price} </TableCell>
+              <TableCell> {product.stock} </TableCell>
+              <TableCell> {product.gender} </TableCell>
+              <TableCell> {product.sizes.join(', ')} </TableCell>
+              <TableCell className="text-right">
+                <Link  to={`/admin/products/t-shirt-teslo`}> <PencilIcon/> </Link>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
 
-      <CustomPagination totalPages={10} />
+      <CustomPagination totalPages={data?.pages ?? 0} />
     </>
   );
 };

@@ -11,10 +11,13 @@ import { RegisterPage } from "./auth/pages/register/RegisterPage";
 import { DashboardPage } from "./admin/layout/pages/dashboard/DashboardPage";
 import { AdminProductsPage } from "./admin/layout/pages/product/AdminProductsPage";
 import { AdminProductPage } from "./admin/layout/pages/product/AdminProductPage";
+import {
+  AdminRoute,
+  NotAuthenticatedRoute,
+} from "./components/ui/routes/ProtectedRoutes";
 
-
-const AuthLayout = lazy(()=>import('./auth/layouts/AuthLayout'))
-const AdminLayout = lazy(()=>import('./admin/layout/AdminLayout'))
+const AuthLayout = lazy(() => import("./auth/layouts/AuthLayout"));
+const AdminLayout = lazy(() => import("./admin/layout/AdminLayout"));
 
 export const appRouter = createBrowserRouter([
   //public routes
@@ -26,11 +29,15 @@ export const appRouter = createBrowserRouter([
       { path: "product/:idSlug", element: <ProductPage /> },
       { path: "gender/:gender", element: <GenderPage /> },
     ],
-    //authRoutes
+    //auth Routes
   },
   {
     path: "/auth",
-    element: <AuthLayout />,
+    element: (
+      <NotAuthenticatedRoute>
+        <AuthLayout />
+      </NotAuthenticatedRoute>
+    ),
     children: [
       { index: true, element: <Navigate to="/auth/login" /> },
       { path: "login", element: <LoginPage /> },
@@ -40,10 +47,14 @@ export const appRouter = createBrowserRouter([
   //admin routes
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: (
+      <AdminRoute>
+        <AdminLayout />
+      </AdminRoute>
+    ),
     children: [
       { index: true, element: <DashboardPage /> },
-      { path: "products", element: <AdminProductsPage /> },
+      { path: "products", element: <AdminProductsPage /> }, 
       { path: "products/:id", element: <AdminProductPage /> },
     ],
   },
